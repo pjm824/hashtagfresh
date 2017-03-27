@@ -7,22 +7,34 @@
     android:orientation="vertical"
     android:background="@android:color/white">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="15dp"
         android:orientation="vertical">
-    <include layout="@layout/tweet_header"
-        android:id="@+id/tweet_header" />
 
-    <EditText
-        android:id="@+id/etTweetBody"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/tweet_place_holder"
-        android:padding="15dp"/>
+        <include layout="@layout/tweet_header"
+            android:id="@+id/tweet_header" />
 
-    </LinearLayout>
+        <EditText
+            android:id="@+id/etTweetBody"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tweet_header"
+            android:hint="@string/tweet_place_holder"
+            android:padding="15dp"
+            android:maxLength="140"/>
+
+        <TextView
+            android:id="@+id/tvCharacterCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/etTweetBody"
+            android:textColor="@color/colorPrimary"/>
+
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/buttonLayout"

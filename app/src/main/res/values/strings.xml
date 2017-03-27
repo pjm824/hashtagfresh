@@ -9,5 +9,6 @@
     <string name="tweet_place_holder">What\'s Happening?</string>
     <string name="save_button_label">Save</string>
     <string name="cancel_button_label">Cancel</string>
+    <string name="character_count">%1$d/140</string>
 
 </resources>

@@ -5,6 +5,8 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,6 +42,7 @@ public class ComposeTweetDialogFragment extends DialogFragment {
     TextView tvName;
 
     EditText etTweetBody;
+    TextView tvCharacterCount;
 
     Button btnSave;
     Button btnCancel;
@@ -76,6 +79,23 @@ public class ComposeTweetDialogFragment extends DialogFragment {
         public void onClick(View v) {
             dismiss();
         }
+    };
+
+    /**
+     * Count remaining characters
+     */
+    private final TextWatcher characterCountWatcher = new TextWatcher()
+    {
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            setRemainingCount();
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+        @Override
+        public void afterTextChanged(Editable s) {}
     };
 
     public ComposeTweetDialogFragment() {
@@ -124,6 +144,7 @@ public class ComposeTweetDialogFragment extends DialogFragment {
         tvUserName = (TextView) view.findViewById(R.id.tvUserName);
         tvName = (TextView) view.findViewById(R.id.tvName);
         etTweetBody = (EditText) view.findViewById(R.id.etTweetBody);
+        tvCharacterCount = (TextView) view.findViewById(R.id.tvCharacterCount);
         btnSave = (Button) view.findViewById(R.id.btnSave);
         btnCancel = (Button) view.findViewById(R.id.btnCancel);
 
@@ -138,6 +159,10 @@ public class ComposeTweetDialogFragment extends DialogFragment {
         // set up save and cancel buttons
         btnSave.setOnClickListener(btnSaveOnClick);
         btnCancel.setOnClickListener(btnCancelOnClick);
+
+        // add listener and initialize remaining count text view
+        etTweetBody.addTextChangedListener(characterCountWatcher);
+        setRemainingCount();
     }
 
     @Override
@@ -150,5 +175,11 @@ public class ComposeTweetDialogFragment extends DialogFragment {
         getDialog().getWindow().setAttributes((android.view.WindowManager.LayoutParams) params);
         // Call super onResume after sizing
         super.onResume();
+    }
+
+    private void setRemainingCount() {
+        Resources res = getContext().getResources();
+        String remainingCount = res.getString(R.string.character_count, 140 - etTweetBody.getText().toString().length());
+        tvCharacterCount.setText(remainingCount);
     }
 }

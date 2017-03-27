@@ -16,6 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/tweet_header"
+        android:autoLink="all"
         style="@style/tweetBody"/>
 
     <TextView
