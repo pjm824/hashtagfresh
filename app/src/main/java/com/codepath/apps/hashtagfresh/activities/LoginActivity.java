@@ -6,7 +6,7 @@ import android.view.Menu;
 import android.view.View;
 
 import com.codepath.apps.hashtagfresh.R;
-import com.codepath.apps.hashtagfresh.TwitterClient;
+import com.codepath.apps.hashtagfresh.network.TwitterClient;
 import com.codepath.oauth.OAuthLoginActionBarActivity;
 
 public class LoginActivity extends OAuthLoginActionBarActivity<TwitterClient> {

@@ -4,5 +4,10 @@
     <string name="app_name">hashtagfresh</string>
     <string name="login_label">Connect to Twitter</string>
     <string name="title_activity_timeline">Home Timeline</string>
+    <string name="compose">Compose</string>
+    <string name="handle">\@%1$s</string>
+    <string name="tweet_place_holder">What\'s Happening?</string>
+    <string name="save_button_label">Save</string>
+    <string name="cancel_button_label">Cancel</string>
 
 </resources>

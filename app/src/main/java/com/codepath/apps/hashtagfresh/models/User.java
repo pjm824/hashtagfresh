@@ -2,14 +2,20 @@ package com.codepath.apps.hashtagfresh.models;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcel;
 
+@Parcel
 public class User {
 
 
-    private String name;
-    private long uid;
-    private String screenName;
-    private String profileImageUrl;
+    public String name;
+    public long uid;
+    public String screenName;
+    public String profileImageUrl;
+
+    // empty constructor needed by the Parceler library
+    public User() {
+    }
 
     public String getName() {
         return name;

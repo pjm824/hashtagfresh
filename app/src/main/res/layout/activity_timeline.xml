@@ -4,11 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.codepath.apps.hashtagfresh.activities.TimelineActivity">
+    tools:context="com.codepath.apps.hashtagfresh.activities.TimelineActivity"
+    android:fitsSystemWindows="true">
 
-    <ListView
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:titleTextColor="@android:color/white"
+        android:background="?attr/colorPrimary"/>
+
+
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/lvTweets"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
+        android:background="@android:color/white"/>
 
 </RelativeLayout>

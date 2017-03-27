@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#1DA1F2</color>
+    <color name="colorNegative">#E1E8ED</color>
+    <color name="subtextColor">#9E9E9E</color>
+    <color name="border">#AAB8C2</color>
+</resources>

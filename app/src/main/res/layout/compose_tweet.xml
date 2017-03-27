@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/compose_tweet"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    android:background="@android:color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:orientation="vertical">
+    <include layout="@layout/tweet_header"
+        android:id="@+id/tweet_header" />
+
+    <EditText
+        android:id="@+id/etTweetBody"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/tweet_place_holder"
+        android:padding="15dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/buttonLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnCancel"
+            style="@style/negativeButton.halfWidth"
+            android:text="@string/cancel_button_label"/>
+
+        <Button
+            android:id="@+id/btnSave"
+            style="@style/positiveButton.halfWidth"
+            android:text="@string/save_button_label" />
+    </LinearLayout>
+
+
+</RelativeLayout>

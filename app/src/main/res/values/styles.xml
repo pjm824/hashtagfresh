@@ -9,8 +9,37 @@
     </style>
 
     <!-- Application theme. -->
-    <style name="AppTheme" parent="AppBaseTheme">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+    </style>
+
+    <style name="tweetBody">
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="positiveButton">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:background">@color/colorPrimary</item>
+    </style>
+
+    <style name="negativeButton">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:background">@color/colorNegative</item>
+    </style>
+
+    <style name="positiveButton.halfWidth">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">.50</item>
+    </style>
+
+    <style name="negativeButton.halfWidth">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">.50</item>
     </style>
 
 </resources>

@@ -1,5 +1,7 @@
 package com.codepath.apps.hashtagfresh.models;
 
+import com.codepath.apps.hashtagfresh.util.DateUtil;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,6 +28,10 @@ public class Tweet {
 
     public String getCreatedAt() {
         return createdAt;
+    }
+
+    public String getRelativeTimestamp() {
+        return DateUtil.getRelativeTimeAgo(this.getCreatedAt());
     }
 
     public static Tweet fromJson(JSONObject jsonObject) {
