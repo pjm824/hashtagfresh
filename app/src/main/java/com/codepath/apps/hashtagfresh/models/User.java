@@ -12,6 +12,9 @@ public class User {
     public long uid;
     public String screenName;
     public String profileImageUrl;
+    public String tagLine;
+    public int followersCount;
+    public int friendsCount;
 
     // empty constructor needed by the Parceler library
     public User() {
@@ -41,6 +44,9 @@ public class User {
             user.uid = jsonObject.getLong("id");
             user.screenName = jsonObject.getString("screen_name");
             user.profileImageUrl = jsonObject.getString("profile_image_url");
+            user.tagLine = jsonObject.getString("description");
+            user.followersCount = jsonObject.getInt("followers_count");
+            user.friendsCount = jsonObject.getInt("friends_count");
         } catch (JSONException e) {
             e.printStackTrace();
         }

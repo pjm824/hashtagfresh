@@ -1,6 +1,7 @@
 package com.codepath.apps.hashtagfresh.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,8 +11,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.codepath.apps.hashtagfresh.R;
+import com.codepath.apps.hashtagfresh.activities.ProfileActivity;
 import com.codepath.apps.hashtagfresh.models.Tweet;
+import com.codepath.apps.hashtagfresh.models.User;
 import com.squareup.picasso.Picasso;
+
+import org.parceler.Parcels;
 
 import java.util.List;
 
@@ -20,11 +25,14 @@ import static com.raizlabs.android.dbflow.config.FlowManager.getContext;
 public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder> {
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
+        User user;
         ImageView ivProfileImage;
         TextView tvUserName;
         TextView tvBody;
         TextView tvName;
         TextView tvTime;
+
+        private final Context context;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -34,6 +42,17 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             tvBody = (TextView) itemView.findViewById(R.id.tvBody);
             tvName = (TextView) itemView.findViewById(R.id.tvName);
             tvTime = (TextView) itemView.findViewById(R.id.tvTime);
+
+            context = itemView.getContext();
+
+            ivProfileImage.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    // launch profile view
+                    Intent i = new Intent(getContext(), ProfileActivity.class);
+                    i.putExtra("user", Parcels.wrap(user));
+                    context.startActivity(i);
+                }
+            });
         }
     }
 
@@ -76,7 +95,8 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
 
         // populate data into subviews
         Resources res = getContext().getResources();
-        String handle = res.getString(R.string.handle, tweet.getUser().getScreenName());
+        viewHolder.user = tweet.getUser();
+        String handle = res.getString(R.string.handle, viewHolder.user.getScreenName());
         viewHolder.tvUserName.setText(handle);
         viewHolder.tvBody.setText(tweet.getBody());
         viewHolder.tvName.setText(tweet.getUser().getName());

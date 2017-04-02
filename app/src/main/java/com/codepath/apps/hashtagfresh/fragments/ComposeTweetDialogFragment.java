@@ -1,6 +1,5 @@
 package com.codepath.apps.hashtagfresh.fragments;
 
-
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -32,10 +31,6 @@ import org.parceler.Parcels;
 import cz.msebera.android.httpclient.Header;
 
 public class ComposeTweetDialogFragment extends DialogFragment {
-
-    public interface TweetCreateListener {
-        void onFinishCreate(Tweet tweet);
-    }
 
     ImageView ivProfileImage;
     TextView tvUserName;
@@ -129,24 +124,37 @@ public class ComposeTweetDialogFragment extends DialogFragment {
 
         // get the user instance so that we can set the profile image, name, etc
         User user = Parcels.unwrap(getArguments().getParcelable("user"));
-
-        setUpViews(view, user);
+        setUpViews(user);
 
         // Show soft keyboard automatically and request focus to field
         etTweetBody.requestFocus();
         getDialog().getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+
     }
 
-    private void setUpViews(View view, User user) {
+    @Override
+    public void onResume() {
+        // Get existing layout params for the window
+        ViewGroup.LayoutParams params = getDialog().getWindow().getAttributes();
+        // Assign window properties to fill the parent
+        params.width = WindowManager.LayoutParams.MATCH_PARENT;
+        params.height = WindowManager.LayoutParams.MATCH_PARENT;
+        getDialog().getWindow().setAttributes((android.view.WindowManager.LayoutParams) params);
+        // Call super onResume after sizing
+        super.onResume();
+    }
+
+
+    private void setUpViews(User user) {
         // set views to instance variables
-        ivProfileImage = (ImageView) view.findViewById(R.id.ivProfileImage);
-        tvUserName = (TextView) view.findViewById(R.id.tvUserName);
-        tvName = (TextView) view.findViewById(R.id.tvName);
-        etTweetBody = (EditText) view.findViewById(R.id.etTweetBody);
-        tvCharacterCount = (TextView) view.findViewById(R.id.tvCharacterCount);
-        btnSave = (Button) view.findViewById(R.id.btnSave);
-        btnCancel = (Button) view.findViewById(R.id.btnCancel);
+        ivProfileImage = (ImageView) getView().findViewById(R.id.ivProfileImage);
+        tvUserName = (TextView) getView().findViewById(R.id.tvUserName);
+        tvName = (TextView) getView().findViewById(R.id.tvName);
+        etTweetBody = (EditText) getView().findViewById(R.id.etTweetBody);
+        tvCharacterCount = (TextView) getView().findViewById(R.id.tvCharacterCount);
+        btnSave = (Button) getView().findViewById(R.id.btnSave);
+        btnCancel = (Button) getView().findViewById(R.id.btnCancel);
 
         // set user profile image, username, etc
         Resources res = getContext().getResources();
@@ -165,21 +173,13 @@ public class ComposeTweetDialogFragment extends DialogFragment {
         setRemainingCount();
     }
 
-    @Override
-    public void onResume() {
-        // Get existing layout params for the window
-        ViewGroup.LayoutParams params = getDialog().getWindow().getAttributes();
-        // Assign window properties to fill the parent
-        params.width = WindowManager.LayoutParams.MATCH_PARENT;
-        params.height = WindowManager.LayoutParams.MATCH_PARENT;
-        getDialog().getWindow().setAttributes((android.view.WindowManager.LayoutParams) params);
-        // Call super onResume after sizing
-        super.onResume();
-    }
-
     private void setRemainingCount() {
         Resources res = getContext().getResources();
         String remainingCount = res.getString(R.string.character_count, 140 - etTweetBody.getText().toString().length());
         tvCharacterCount.setText(remainingCount);
+    }
+
+    public interface TweetCreateListener {
+        void onFinishCreate(Tweet tweet);
     }
 }

@@ -10,5 +10,6 @@
     <string name="save_button_label">Save</string>
     <string name="cancel_button_label">Cancel</string>
     <string name="character_count">%1$d/140</string>
+    <string name="profile">Profile</string>
 
 </resources>
