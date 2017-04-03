@@ -17,18 +17,19 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.codepath.apps.hashtagfresh.R;
 import com.codepath.apps.hashtagfresh.TwitterApplication;
 import com.codepath.apps.hashtagfresh.models.Tweet;
 import com.codepath.apps.hashtagfresh.models.User;
 import com.codepath.apps.hashtagfresh.network.TwitterClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
 import org.parceler.Parcels;
 
 import cz.msebera.android.httpclient.Header;
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 public class ComposeTweetDialogFragment extends DialogFragment {
 
@@ -162,7 +163,10 @@ public class ComposeTweetDialogFragment extends DialogFragment {
         tvUserName.setText(handle);
         tvName.setText(user.getName());
         ivProfileImage.setImageResource(android.R.color.transparent);
-        Picasso.with(getContext()).load(user.getProfileImageUrl()).into(ivProfileImage);
+        Glide.with(getContext())
+                .load(user.getProfileImageUrl())
+                .bitmapTransform(new RoundedCornersTransformation(getContext(), 5, 5))
+                .into(ivProfileImage);
 
         // set up save and cancel buttons
         btnSave.setOnClickListener(btnSaveOnClick);

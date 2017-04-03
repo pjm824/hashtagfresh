@@ -10,15 +10,17 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.codepath.apps.hashtagfresh.R;
 import com.codepath.apps.hashtagfresh.activities.ProfileActivity;
 import com.codepath.apps.hashtagfresh.models.Tweet;
 import com.codepath.apps.hashtagfresh.models.User;
-import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
 
 import java.util.List;
+
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 import static com.raizlabs.android.dbflow.config.FlowManager.getContext;
 
@@ -102,7 +104,10 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         viewHolder.tvName.setText(tweet.getUser().getName());
         viewHolder.tvTime.setText(tweet.getRelativeTimestamp());
         viewHolder.ivProfileImage.setImageResource(android.R.color.transparent);
-        Picasso.with(getContext()).load(tweet.getUser().getProfileImageUrl()).into(viewHolder.ivProfileImage);
+        Glide.with(getContext())
+                .load(tweet.getUser().getProfileImageUrl())
+                .bitmapTransform(new RoundedCornersTransformation(getContext(), 5, 5))
+                .into(viewHolder.ivProfileImage);
     }
 
     // Returns the total count of items in the list
