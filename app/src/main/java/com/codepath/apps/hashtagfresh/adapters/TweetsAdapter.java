@@ -2,17 +2,16 @@ package com.codepath.apps.hashtagfresh.adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.codepath.apps.hashtagfresh.R;
 import com.codepath.apps.hashtagfresh.activities.ProfileActivity;
+import com.codepath.apps.hashtagfresh.databinding.ItemTweetBinding;
 import com.codepath.apps.hashtagfresh.models.Tweet;
 import com.codepath.apps.hashtagfresh.models.User;
 
@@ -28,25 +27,16 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         User user;
-        ImageView ivProfileImage;
-        TextView tvUserName;
-        TextView tvBody;
-        TextView tvName;
-        TextView tvTime;
 
         private final Context context;
+        final ItemTweetBinding binding;
 
         public ViewHolder(View itemView) {
             super(itemView);
-
-            ivProfileImage = (ImageView) itemView.findViewById(R.id.ivProfileImage);
-            tvUserName = (TextView) itemView.findViewById(R.id.tvUserName);
-            tvBody = (TextView) itemView.findViewById(R.id.tvBody);
-            tvName = (TextView) itemView.findViewById(R.id.tvName);
-            tvTime = (TextView) itemView.findViewById(R.id.tvTime);
-
             context = itemView.getContext();
+            binding = ItemTweetBinding.bind(itemView);
 
+            ImageView ivProfileImage = binding.tweetHeader.ivProfileImage;
             ivProfileImage.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     // launch profile view
@@ -92,22 +82,19 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
      */
     @Override
     public void onBindViewHolder(TweetsAdapter.ViewHolder viewHolder, int position) {
-        // Get the data model based on position
-        Tweet tweet = mTweets.get(position);
+        final Tweet tweet = mTweets.get(position);
 
-        // populate data into subviews
-        Resources res = getContext().getResources();
         viewHolder.user = tweet.getUser();
-        String handle = res.getString(R.string.handle, viewHolder.user.getScreenName());
-        viewHolder.tvUserName.setText(handle);
-        viewHolder.tvBody.setText(tweet.getBody());
-        viewHolder.tvName.setText(tweet.getUser().getName());
-        viewHolder.tvTime.setText(tweet.getRelativeTimestamp());
-        viewHolder.ivProfileImage.setImageResource(android.R.color.transparent);
+
+        viewHolder.binding.setTweet(tweet);  // setVariable(BR.user, user) would also work
+        viewHolder.binding.executePendingBindings();   // update the view now
+
+        ImageView ivProfileImage = viewHolder.binding.tweetHeader.ivProfileImage;
+        ivProfileImage.setImageResource(android.R.color.transparent);
         Glide.with(getContext())
                 .load(tweet.getUser().getProfileImageUrl())
                 .bitmapTransform(new RoundedCornersTransformation(getContext(), 5, 5))
-                .into(viewHolder.ivProfileImage);
+                .into(ivProfileImage);
     }
 
     // Returns the total count of items in the list
